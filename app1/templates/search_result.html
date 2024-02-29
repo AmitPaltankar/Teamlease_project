@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Search by Mobile Number</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f7e6; /* light green */
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            width: 80%;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #fff; /* white */
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            text-align: center;
+            color: #3c763d; /* green */
+        }
+        form {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #3c763d; /* green */
+            font-weight: bold;
+        }
+        input[type="text"] {
+            width: 200px;
+            padding: 10px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            border: 1px solid #3c763d; /* green */
+        }
+        button {
+            background-color: #3c763d; /* green */
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #005300; /* dark green */
+        }
+        p.error-message {
+            color: #ff0000; /* red */
+            text-align: center;
+            margin-top: 10px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background-color: #3c763d; /* green */
+            color: #fff;
+        }
+        .search-tag {
+            font-size: 16px;
+            margin-bottom: 5px;
+            color: #3c763d; /* green */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Search by Mobile Number</h2>
+        {% if error_message %}
+            <p class="error-message">{{ error_message }}</p>
+        {% endif %}
+        <form method="post">
+            {% csrf_token %}
+            <label for="mobile_number" class="search-tag">Enter Mobile Number:</label>
+            <input type="text" id="mobile_number" name="mobile_number" required>
+            <br>
+            <button type="submit">Search</button>
+        </form>
+        {% if employees %}
+            <h3>Search Results</h3>
+            <table>
+                <tr>
+                    <th>Employee ID</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Mobile</th>
+                </tr>
+                {% for employee in employees %}
+                    <tr>
+                        <td>{{ employee.emp_id }}</td>
+                        <td>{{ employee.name }}</td>
+                        <td>{{ employee.email }}</td>
+                        <td>{{ employee.mobile }}</td>
+                    </tr>
+                {% endfor %}
+            </table>
+        {% endif %}
+    </div>
+</body>
+</html>
